@@ -1,4 +1,3 @@
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { User } from '../src/models/User';
 import { Category } from '../src/models/Category';
@@ -11,11 +10,9 @@ process.env.JWT_SECRET = process.env.JWT_SECRET ?? 'test_secret_at_least_16_char
 process.env.JWT_EXPIRES_IN = '1h';
 process.env.BCRYPT_ROUNDS = '4'; // fast hashing keeps the suite quick
 
-let mongo: MongoMemoryServer;
-
 beforeAll(async () => {
-  mongo = await MongoMemoryServer.create();
-  await mongoose.connect(mongo.getUri());
+  // Connect to the shared in-memory server started in globalSetup.
+  await mongoose.connect(process.env.MONGO_URI as string);
 
   // Ensure the unique/compound indexes exist so constraint tests are reliable.
   await Promise.all([User.init(), Category.init(), Expense.init(), Budget.init()]);
@@ -29,5 +26,4 @@ afterEach(async () => {
 
 afterAll(async () => {
   await mongoose.disconnect();
-  await mongo.stop();
 });

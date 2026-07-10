@@ -2,9 +2,15 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
+  // Spinning up an in-memory mongod in beforeAll can exceed Jest's default 5s
+  // hook timeout under load, so give hooks/tests more headroom.
+  testTimeout: 30000,
   roots: ['<rootDir>/tests'],
   testMatch: ['**/*.test.ts'],
-  // Global setup/teardown spin up an in-memory MongoDB so tests need no live DB.
+  // One shared in-memory MongoDB for the whole run (started once), so tests need
+  // no live DB and don't pay mongod startup per file.
+  globalSetup: '<rootDir>/tests/globalSetup.ts',
+  globalTeardown: '<rootDir>/tests/globalTeardown.ts',
   setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
   collectCoverageFrom: [
     'src/**/*.ts',
