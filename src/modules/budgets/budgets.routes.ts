@@ -2,11 +2,7 @@ import { Router } from 'express';
 import { authenticate } from '../../middleware/authenticate';
 import { validate } from '../../middleware/validate';
 import { idParamSchema } from '../../utils/zod';
-import {
-  createBudgetSchema,
-  listBudgetsQuerySchema,
-  updateBudgetSchema,
-} from './budgets.schema';
+import { createBudgetSchema, listBudgetsQuerySchema, updateBudgetSchema } from './budgets.schema';
 import * as budgetsController from './budgets.controller';
 
 const router = Router();

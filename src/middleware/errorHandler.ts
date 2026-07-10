@@ -24,14 +24,14 @@ export function errorHandler(
   err: unknown,
   _req: Request,
   res: Response,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
   _next: NextFunction,
 ): void {
   const { code, message, details, statusCode } = normalize(err);
 
   if (statusCode >= 500) {
     // Log the real error server-side; never leak internals to the client.
-    // eslint-disable-next-line no-console
+
     console.error('[error]', err);
   }
 
@@ -49,7 +49,12 @@ function normalize(err: unknown): {
 } {
   // Our own operational errors already carry everything we need.
   if (err instanceof AppError) {
-    return { code: err.code, message: err.message, statusCode: err.statusCode, details: err.details };
+    return {
+      code: err.code,
+      message: err.message,
+      statusCode: err.statusCode,
+      details: err.details,
+    };
   }
 
   // A Zod error that escaped the validate middleware (defensive).
@@ -65,7 +70,11 @@ function normalize(err: unknown): {
   // Mongoose duplicate-key (e.g. unique email / category name) -> 409.
   if (isDuplicateKeyError(err)) {
     const field = Object.keys(err.keyValue ?? {})[0] ?? 'field';
-    return { code: 'CONFLICT', message: `A record with that ${field} already exists`, statusCode: 409 };
+    return {
+      code: 'CONFLICT',
+      message: `A record with that ${field} already exists`,
+      statusCode: 409,
+    };
   }
 
   // Malformed ObjectId in a path param -> 404 (we treat "not a real id" as not found).

@@ -12,7 +12,9 @@ interface AuthResult {
 
 /** Sign a short-lived access token carrying the user id as `sub`. */
 function issueToken(userId: string): string {
-  const options: jwt.SignOptions = { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] };
+  const options: jwt.SignOptions = {
+    expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'],
+  };
   return jwt.sign({ sub: userId }, env.JWT_SECRET, options);
 }
 

@@ -24,7 +24,14 @@ const budgetSchema = new Schema<IBudget>(
       min: 1,
       validate: { validator: Number.isInteger, message: 'amount (cents) must be an integer' },
     },
-    currency: { type: String, required: true, uppercase: true, default: 'USD', minlength: 3, maxlength: 3 },
+    currency: {
+      type: String,
+      required: true,
+      uppercase: true,
+      default: 'USD',
+      minlength: 3,
+      maxlength: 3,
+    },
   },
   { timestamps: true },
 );

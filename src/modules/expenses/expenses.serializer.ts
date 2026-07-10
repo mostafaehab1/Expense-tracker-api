@@ -29,9 +29,7 @@ export function serializeExpense(doc: ExpenseDocument): ExpenseResponse {
   const isPopulated =
     category !== null && typeof category === 'object' && 'name' in (category as object);
 
-  const categoryId = isPopulated
-    ? String((category as PopulatedCategory)._id)
-    : String(category);
+  const categoryId = isPopulated ? String((category as PopulatedCategory)._id) : String(category);
 
   return {
     id: doc.id,

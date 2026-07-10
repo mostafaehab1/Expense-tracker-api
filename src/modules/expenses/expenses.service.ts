@@ -104,7 +104,8 @@ export async function updateExpense(
 
   const update: Partial<IExpense> = {};
   if (patch.amount !== undefined) update.amount = toMinorUnits(patch.amount);
-  if (patch.categoryId !== undefined) update.category = patch.categoryId as unknown as IExpense['category'];
+  if (patch.categoryId !== undefined)
+    update.category = patch.categoryId as unknown as IExpense['category'];
   if (patch.description !== undefined) update.description = patch.description;
   if (patch.date !== undefined) update.date = patch.date;
   if (patch.currency !== undefined) update.currency = patch.currency;
