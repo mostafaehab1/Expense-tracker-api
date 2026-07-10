@@ -3,8 +3,7 @@
 A production-quality REST API for personal expense tracking — built to demonstrate clean
 API design, not just working endpoints. Node.js · Express · TypeScript · MongoDB.
 
-<!-- Replace <user>/<repo> with your GitHub path to activate the CI badge. -->
-![CI](https://github.com/<user>/expense-tracker-api/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/mostafaehab1/Expense-tracker-api/actions/workflows/ci.yml/badge.svg)
 
 > **Why I built this** — _(rewrite this in your own voice)_ I wanted a small project I
 > could engineer to a professional standard: real auth, per-user data isolation,
